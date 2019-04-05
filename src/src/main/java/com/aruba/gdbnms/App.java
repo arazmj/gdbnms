@@ -1,5 +1,8 @@
 package com.aruba.gdbnms;
 
+import model.my.Cidr;
+import model.my.Port;
+import model.my.Switch;
 import org.neo4j.driver.v1.AuthTokens;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.GraphDatabase;
@@ -26,6 +29,13 @@ public class App implements AutoCloseable
 
     public void printGreeting( final String message )
     {
+        Switch mySwitch = new Switch(new Port[] {
+                new Port(new Cidr("10.12.13.14")),
+                new Port(new Cidr("11.11.11.11")),
+                new Port(new Cidr("192.168.1.1")),
+                new Port(new Cidr("127.0.0.1", 24))
+        });
+
         try ( Session session = driver.session() )
         {
             String greeting = session.writeTransaction( new TransactionWork<String>()
