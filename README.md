@@ -1,6 +1,13 @@
 ## Graph Databases and Network Management Systems
 
-The goal of this project is to review graph databases for network management systems applications, a graph database is a database that uses graph structures for semantic queries with nodes, edges and properties to represent and store data. The relationships allow data in the store to be linked together directly, and in many cases retrieved with one operation. Graph databases hold the relationships between data as a priority. Querying relationships within a graph database is fast because they are perpetually stored within the database itself. Relationships can be intuitively visualized using graph databases, making it useful for network management systems working heavily inter-connected network data.
+The goal of this project is to review graph databases for network management systems applications, a graph database is a database that uses graph structures for semantic queries with nodes, edges and properties to represent and store data. The relationships allow data in the store to be linked together directly, and in many cases retrieved with one operation. Graph databases hold the relationships between data as a priority. Querying relationships within a graph database is fast because they are perpetually stored within the database itself. Relationships can be intuitively visualized using graph databases, making it useful for network management systems working heavily inter-connected network data. Relationships are not first-class citizens in the RDBMS technology. Graph Database are very strong in highly related data. Even though there are many relationships in the graph database the graph database remain very performant during the retrival of the data even with millions of the nodes. The graph database is very flexible because it does not use a fixed schema for the nodes. Nodes and properties can contain properties.
+
+| Relational | Document-Based | Graph |
+|------|-------|----|
+| Tables |Documents | Nodes  |
+| Schemas with nullables | No Schemas | No Schemas  |
+| Relations with foreign keys | Relations with foreign keys | Relation is first class citizen |
+| Related data is fetched with joins | Related data is fetched with joins  | Related data is fetched with patterns |
 
 The purpose for this review is find the best graph database technology and the supporting case scenarios to use the database to store and retrieve network topology data.
 
@@ -11,6 +18,14 @@ This research covers:
 - What is the sample network toplogy data that base our work upon?
 - Which one of common Networking Object Models to use?
 - How to use Object Graph Mappers?
+
+### Aruba Case Scenario
+
+- How many ElasticSearch Nodes currently are being used?
+- What is typical number of node and edges in the worst case scenario.
+- What type of relationships we have for SDWAN scenario. 
+
+### Graph Model
 
 
 ### Graph database candidates
