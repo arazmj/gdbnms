@@ -18,14 +18,18 @@ This research covers:
 - What is the sample network toplogy data that base our work upon?
 - Which one of common Networking Object Models to use?
 - How to use Object Graph Mappers?
+- How do we track changes topological changes
 
-### Aruba Case Scenario
+### Case Scenarios
 
 - How many ElasticSearch Nodes currently are being used?
 - What is typical number of node and edges in the worst case scenario.
-- What type of relationships we have for SDWAN scenario. 
+- What type of edges and nodes we have for SDWAN scenario. 
+Example of graph edges: Wired Connection, Wireless, MPLS Connection, VPN Connection, Aggregated Link
+Nodes: Client, Access Point, Switch
 
 ### Graph Model
+
 
 
 ### Graph database candidates
@@ -89,5 +93,8 @@ graphs, and key-values. Build high performance applications using a convenient S
 ### Sample network toplogy
 ### Common object models
 #### OpenNMS
-#### 
+
+### Migration Plan 
+
+#### Realtime Notifications
 
