@@ -29,8 +29,8 @@ Example of graph edges: Wired Connection, Wireless, MPLS Connection, VPN Connect
 Nodes: Client, Access Point, Switch
 
 ### Graph Model
-
-
+Simple two branch deployment:
+![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/SimpleNeo4JGraph.png)
 
 ### Graph database candidates
 - [GraphDB Lite](http://graphdb.ontotext.com). GraphDB Lite is a free RDF triplestore that allows to store up to 100 million triples on a desktop
