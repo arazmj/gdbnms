@@ -85,8 +85,9 @@ graphs, and key-values. Build high performance applications using a convenient S
 - [Titan](http://titan.thinkaurelius.com) ArangoDB is a distributed free and open-source database with a flexible data model for documents,
 graphs, and key-values. Build high performance applications using a convenient SQL-like query language or JavaScript extensions.
 - Query language 
-##### Object graph mappers
-##### Scalability
+
+### Object graph mappers
+### Scalability
 
 
 
@@ -95,6 +96,7 @@ graphs, and key-values. Build high performance applications using a convenient S
 #### OpenNMS
 
 ### Migration Plan 
+Migration Plan from Elastic Search 
 
-#### Realtime Notifications
+### Realtime Notifications
 
