@@ -27,8 +27,20 @@ This research covers:
 - What type of edges and nodes we have for SDWAN scenario. 
 Example of graph edges: Wired Connection, Wireless, MPLS Connection, VPN Connection, Aggregated Link
 Nodes: Client, Access Point, Switch
+- Single branch Deployment:
+![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/Example%20SD-WAN%20Deployment.png)
+
+![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/NSXModel.png)
 
 ### Graph Model
+- Lables:
+	- Client: 
+	- Branch
+	- Switch
+	- Access Point
+	- Port
+	- Network
+
 - Single branch Deployment:
 ![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/SingleBranchDeployment.png)
 
@@ -37,9 +49,6 @@ Nodes: Client, Access Point, Switch
 
 - Simple 10 branch deployment
 ![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/SimpleBranch10Deployments.png)
-
-1. Lables:
--
 
 ### Graph database candidates
 - [GraphDB Lite](http://graphdb.ontotext.com). GraphDB Lite is a free RDF triplestore that allows to store up to 100 million triples on a desktop
@@ -78,12 +87,11 @@ graphs, and key-values. Build high performance applications using a convenient S
 	- Query language 
 
 
-### Sample network toplogy
-### Common object models
-#### OpenNMS
-
 ### Migration Plan 
 Migration Plan from Elastic Search 
 
 ### Realtime Notifications
 
+
+### Timeline
+- 12/4/2019: Added python scripts to automaticaly generate graph based on the number of branches and set MAC address and IP numbers automaticaly. 
