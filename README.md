@@ -29,6 +29,8 @@ Example of graph edges: Wired Connection, Wireless, MPLS Connection, VPN Connect
 Nodes: Client, Access Point, Switch
 
 ### Graph Model
+Single branch Deployment:
+![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/SingleBranchDeployment.png)
 Simple two branch deployment:
 ![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/SimpleNeo4JGraph.png)
 
