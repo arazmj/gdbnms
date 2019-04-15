@@ -1,3 +1,4 @@
+import argparse
 from neo4j import GraphDatabase
 import sys, random
 
@@ -54,11 +55,17 @@ def exec_file(tx, filename, branch):
             tx.run(cmd, branch=branch, mobile=mobile, client=client, mac=rand_mac(), ip=ip)
 
 
+parser = argparse.ArgumentParser()
+parser.add_argument("number", help="number of branches")
+parser.add_argument("common", help="global cypher file for networks")
+parser.add_argument("branch", help="branch cypher file, will be replicated based on the number specified")
+args = parser.parse_args()
+
 with driver.session() as session:
     session.write_transaction(clear_db)
     # global file
-    session.write_transaction(exec_file, sys.argv[2], 1)
+    session.write_transaction(exec_file, args.common, 1)
 
     # branch file
-    for x in range(1, 10):
-      session.write_transaction(exec_file, sys.argv[1], x)
+    for x in range(1, int(args.number) + 1):
+        session.write_transaction(exec_file, args.branch, x)

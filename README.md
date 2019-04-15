@@ -27,6 +27,8 @@ This research covers:
 - What type of edges and nodes we have for SDWAN scenario. 
 Example of graph edges: Wired Connection, Wireless, MPLS Connection, VPN Connection, Aggregated Link
 Nodes: Client, Access Point, Switch
+-The case about VLAN, if the two nodes are connected to a switch that does not imply that those Nodes are L2 connected.
+
 - Single branch Deployment:
 ![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/Example%20SD-WAN%20Deployment.png)
 
@@ -49,6 +51,21 @@ Nodes: Client, Access Point, Switch
 
 - Simple 10 branch deployment
 ![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/SimpleBranch10Deployments.png)
+
+### How to use create_branch.py?
+The tool create_branch.py automaticaly creates a network toplogy based on the number of branches specified. Two cypher files will be needed to create the network toplogy. The common or global cypher file is the file that will be executed only once and it creates global networks and data centers and etc. The branch cypher file will be executed as many as the number is specified the tool will automatically assign new ip addresses and MAC addresses to the toplogy. 
+```
+usage: create_branch.py [-h] number common branch
+
+positional arguments:
+  number      number of branches
+  common      global cypher file for networks
+  branch      branch cypher file, will be replicated based on the number
+              specified
+
+optional arguments:
+  -h, --help  show this help message and exit
+```
 
 ### Graph database candidates
 - [GraphDB Lite](http://graphdb.ontotext.com). GraphDB Lite is a free RDF triplestore that allows to store up to 100 million triples on a desktop
