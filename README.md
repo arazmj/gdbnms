@@ -30,18 +30,21 @@ Nodes: Client, Access Point, Switch
 -The case about VLAN, if the two nodes are connected to a switch that does not imply that those Nodes are L2 connected.
 
 - LLDP (link layer discovery protocol)
-In order to get LLDP for switch 1 this query can be made
+In order to get LLDP for Switch 1 this query can be issued:
 ```
 MATCH (s:Device {name: 'Switch 1'})--(p:Port)--(d:Device)
 RETURN p AS Port, d as DestinationDevice
 ```
 ![Model](img/LLDPSubGraph.png)
 
+The LLDP result for a "Simple two branch deployment" is:
+![Model](img/LLDPResult.png)
+
 
 - Single branch Deployment:
-![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/Example%20SD-WAN%20Deployment.png)
+![Model](img/Example%20SD-WAN%20Deployment.png)
 
-![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/NSXModel.png)
+![Model](img/NSXModel.png)
 
 ### Graph Model
 - Lables:
@@ -53,13 +56,13 @@ RETURN p AS Port, d as DestinationDevice
 	- Network
 
 - Single branch Deployment:
-![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/SingleBranchDeployment.png)
+![Model](img/SingleBranchDeployment.png)
 
 - Simple two branch deployment:
-![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/SimpleNeo4JGraph.png)
+![Model](img/SimpleNeo4JGraph.png)
 
 - Simple 10 branch deployment
-![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/SimpleBranch10Deployments.png)
+![Model](img/SimpleBranch10Deployments.png)
 
 ### How to use create_branch.py?
 The tool create_branch.py automaticaly creates a network toplogy based on the number of branches specified. Two cypher files will be needed to create the network toplogy. The common or global cypher file is the file that will be executed only once and it creates global networks and data centers and etc. The branch cypher file will be executed as many as the number is specified the tool will automatically assign new ip addresses and MAC addresses to the toplogy. 
