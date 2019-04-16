@@ -3,8 +3,8 @@
 The goal of this project is to review graph databases for network management systems applications, a graph database is a database that uses graph structures for semantic queries with nodes, edges and properties to represent and store data. The relationships allow data in the store to be linked together directly, and in many cases retrieved with one operation. Graph databases hold the relationships between data as a priority. Querying relationships within a graph database is fast because they are perpetually stored within the database itself. Relationships can be intuitively visualized using graph databases, making it useful for network management systems working heavily inter-connected network data. Relationships are not first-class citizens in the RDBMS technology. Graph Database are very strong in highly related data. Even though there are many relationships in the graph database the graph database remain very performant during the retrival of the data even with millions of the nodes. The graph database is very flexible because it does not use a fixed schema for the nodes. Nodes and properties can contain properties.
 
 | Relational | Document-Based | Graph |
-|------|-------|----|
-| Tables |Documents | Nodes  |
+|------------|----------------|-------|
+| Tables     |   Documents    | Nodes |
 | Schemas with nullables | No Schemas | No Schemas  |
 | Relations with foreign keys | Relations with foreign keys | Relation is first class citizen |
 | Related data is fetched with joins | Related data is fetched with joins  | Related data is fetched with patterns |
@@ -28,6 +28,15 @@ This research covers:
 Example of graph edges: Wired Connection, Wireless, MPLS Connection, VPN Connection, Aggregated Link
 Nodes: Client, Access Point, Switch
 -The case about VLAN, if the two nodes are connected to a switch that does not imply that those Nodes are L2 connected.
+
+- LLDP (link layer discovery protocol)
+In order to get LLDP for switch 1 this query can be made
+```
+MATCH (s:Device {name: 'Switch 1'})--(p:Port)--(d:Device)
+RETURN p AS Port, d as DestinationDevice
+```
+![Model](img/LLDPSubGraph.png)
+
 
 - Single branch Deployment:
 ![Model](https://raw.githubusercontent.com/arazmj/gdbnms/master/img/Example%20SD-WAN%20Deployment.png)
@@ -54,6 +63,7 @@ Nodes: Client, Access Point, Switch
 
 ### How to use create_branch.py?
 The tool create_branch.py automaticaly creates a network toplogy based on the number of branches specified. Two cypher files will be needed to create the network toplogy. The common or global cypher file is the file that will be executed only once and it creates global networks and data centers and etc. The branch cypher file will be executed as many as the number is specified the tool will automatically assign new ip addresses and MAC addresses to the toplogy. 
+
 ```
 usage: create_branch.py [-h] number common branch
 
@@ -103,6 +113,10 @@ graphs, and key-values. Build high performance applications using a convenient S
 graphs, and key-values. Build high performance applications using a convenient SQL-like query language or JavaScript extensions.
 	- Query language 
 
+### Known Issues
+|Issue | Severity |
+|----|-----|
+| Integer property values cannot be assigned to nodes or edges | Low |
 
 ### Migration Plan 
 Migration Plan from Elastic Search 
@@ -112,3 +126,4 @@ Migration Plan from Elastic Search
 
 ### Timeline
 - 12/4/2019: Added python scripts to automaticaly generate graph based on the number of branches and set MAC address and IP numbers automaticaly. 
+- 15/4/2019: Updated images.
