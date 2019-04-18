@@ -1,4 +1,4 @@
-package model.my;
+package model.network;
 
 /**
  * Created by Amir Razmjou on 2019-04-04.

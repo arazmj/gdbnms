@@ -1,4 +1,4 @@
-package com.aruba.gdbnms;
+package com.amirrazmjou.gdbnms;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

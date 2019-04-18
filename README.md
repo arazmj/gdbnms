@@ -23,10 +23,13 @@ This research covers:
 ### Case Scenarios
 
 - How many ElasticSearch Nodes currently are being used?
+
 - What is typical number of node and edges in the worst case scenario.
+
 - What type of edges and nodes we have for SDWAN scenario. 
 Example of graph edges: Wired Connection, Wireless, MPLS Connection, VPN Connection, Aggregated Link
-Nodes: Client, Access Point, Switch
+Nodes: Client, Access Point, Switch.
+
 -The case about VLAN, if the two nodes are connected to a switch that does not imply that those Nodes are L2 connected.
 
 - LLDP (link layer discovery protocol)
