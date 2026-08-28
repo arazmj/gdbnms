@@ -1,4 +1,5 @@
 import argparse
+from datetime import datetime, timezone
 from neo4j import GraphDatabase
 import sys, random
 
@@ -36,7 +37,7 @@ def print_friends(tx, name):
         print(record["friend.name"])
 
 
-def exec_file(tx, filename, branch):
+def exec_file(tx, filename, branch, created):
     f = open(filename)
     cph = f.read()
     cmds = cph.split(';')
@@ -52,20 +53,40 @@ def exec_file(tx, filename, branch):
             ip += 1
         if not cmd.isspace():
             print(cmd)
-            tx.run(cmd, branch=branch, mobile=mobile, client=client, mac=rand_mac(), ip=ip)
+            tx.run(cmd, branch=branch, mobile=mobile, client=client,
+                   mac=rand_mac(), ip=ip, created=created)
+
+
+def parse_timestamp(value):
+    """Parse an ISO 8601 timestamp; assume UTC if no timezone is supplied."""
+    # Accept a trailing 'Z' as UTC for convenience.
+    if value.endswith('Z'):
+        value = value[:-1] + '+00:00'
+    parsed = datetime.fromisoformat(value)
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument("number", help="number of branches")
 parser.add_argument("common", help="global cypher file for networks")
 parser.add_argument("branch", help="branch cypher file, will be replicated based on the number specified")
+parser.add_argument("--timestamp", "-t", default=None,
+                    help="ISO 8601 timestamp stamped on every created edge "
+                         "(default: current UTC time). All branches in this "
+                         "run share the same timestamp so the subgraph can "
+                         "later be filtered by creation time.")
 args = parser.parse_args()
+
+created = parse_timestamp(args.timestamp) if args.timestamp else datetime.now(timezone.utc)
+print("Stamping edges with created=%s" % created.isoformat())
 
 with driver.session() as session:
     session.write_transaction(clear_db)
     # global file
-    session.write_transaction(exec_file, args.common, 1)
+    session.write_transaction(exec_file, args.common, 1, created)
 
     # branch file
     for x in range(1, int(args.number) + 1):
-        session.write_transaction(exec_file, args.branch, x)
+        session.write_transaction(exec_file, args.branch, x, created)

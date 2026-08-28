@@ -68,19 +68,54 @@ The LLDP result for a "Simple two branch deployment" is:
 ![Model](img/SimpleBranch10Deployments.png)
 
 ### How to use create_branch.py?
-The tool create_branch.py automaticaly creates a network toplogy based on the number of branches specified. Two cypher files will be needed to create the network toplogy. The common or global cypher file is the file that will be executed only once and it creates global networks and data centers and etc. The branch cypher file will be executed as many as the number is specified the tool will automatically assign new ip addresses and MAC addresses to the toplogy. 
+The tool create_branch.py automaticaly creates a network toplogy based on the number of branches specified. Two cypher files will be needed to create the network toplogy. The common or global cypher file is the file that will be executed only once and it creates global networks and data centers and etc. The branch cypher file will be executed as many as the number is specified the tool will automatically assign new ip addresses and MAC addresses to the toplogy. Every edge created in a single run is stamped with the same `created` timestamp so that the subgraph belonging to a particular topology event can later be queried in isolation (see *Edge timestamps* below).
 
 ```
-usage: create_branch.py [-h] number common branch
+usage: create_branch.py [-h] [--timestamp TIMESTAMP] number common branch
 
 positional arguments:
-  number      number of branches
-  common      global cypher file for networks
-  branch      branch cypher file, will be replicated based on the number
-              specified
+  number                number of branches
+  common                global cypher file for networks
+  branch                branch cypher file, will be replicated based on the
+                        number specified
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+  --timestamp TIMESTAMP, -t TIMESTAMP
+                        ISO 8601 timestamp stamped on every created edge
+                        (default: current UTC time). All branches in this run
+                        share the same timestamp so the subgraph can later be
+                        filtered by creation time.
+```
+
+### Edge timestamps
+Every relationship created by the Cypher scripts in `dbs/neo4j/scripts/` carries a `created` property holding a Neo4j `DateTime`. When the scripts are driven by `create_branch.py` the timestamp is supplied by the tool (defaulting to "now", overridable with `--timestamp`); when the standalone `SimpleTwoBranch.cypher` / `SimpleThreeBranch.cypher` scripts are executed directly the value is filled in by Neo4j's built-in `datetime()` function at write time.
+
+Because the timestamp lives on the edges, the topology can be sliced into subgraphs based on when relationships were established. A few example queries:
+
+```cypher
+// All edges created on or after a given instant
+MATCH (a)-[r]->(b)
+WHERE r.created >= datetime('2020-01-01T00:00:00Z')
+RETURN a, r, b;
+
+// Snapshot of the subgraph "as of" a given instant
+// (only edges that already existed by that time)
+MATCH (a)-[r]->(b)
+WHERE r.created <= datetime('2020-06-01T00:00:00Z')
+RETURN a, r, b;
+
+// Edges created within a window
+MATCH (a)-[r]->(b)
+WHERE r.created >= datetime('2020-01-01T00:00:00Z')
+  AND r.created <  datetime('2020-02-01T00:00:00Z')
+RETURN a, r, b;
+
+// Edges that belong to a specific create_branch.py run
+// (the tool stamps every edge of the run with one timestamp)
+MATCH (a)-[r]->(b)
+WHERE r.created = datetime('2020-01-15T12:34:56Z')
+RETURN a, r, b;
 ```
 
 ### Graph database candidates
